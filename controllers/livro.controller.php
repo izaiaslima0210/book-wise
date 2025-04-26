@@ -1,5 +1,5 @@
 <?php
-  require 'dados.php';
+require 'dados.php';
 
   if(!isset($_REQUEST['id'])) {
     http_response_code(404);
@@ -10,6 +10,6 @@
   $livroBusca = array_filter($livros, fn($livroFiltro) => $livroFiltro['id'] == $_REQUEST['id']);
   $livro = array_pop($livroBusca);
 
-  $view = 'livro';
-  require 'views/template/app.php';
+  view('livro', array('livro'=> $livro));
+  
 ?>
