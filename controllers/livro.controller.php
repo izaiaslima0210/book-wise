@@ -1,5 +1,6 @@
 <?php
-require 'dados.php';
+// require 'dados.php';
+require 'models/dados.php';
 
   if(!isset($_REQUEST['id'])) {
     http_response_code(404);
