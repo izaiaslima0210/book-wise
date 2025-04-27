@@ -6,7 +6,7 @@ if(!isset($_REQUEST['id'])) {
   die();
 }
 
-$livro = (new Dados)->getLivros($_REQUEST['id']);
+$livro = (new Dados)->getLivro($_REQUEST['id']);
 
   view('livro', array('livro'=> $livro));
   

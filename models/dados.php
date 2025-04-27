@@ -10,6 +10,17 @@ class Livro
     public $image;
     public $rating;
 
+    public static function make ($item) {
+        $livro = new self();
+        $livro->id = $item['id'];
+        $livro->title = $item['title'];
+        $livro->author = $item['author'];
+        $livro->description = $item['description'];
+        $livro->image = $item['cover_image'];
+        $livro->rating = $item['rating'];
+        return $livro;
+    }
+
 }
 
 class Dados
@@ -21,37 +32,31 @@ class Dados
         $this->db = Conexao::getInstance();
     }
 
-    public function getLivros($id = null)
+    public function getLivro($id)
     {
-        if ($id) {
+        if (!empty($id)) {
             $query = "SELECT * FROM book WHERE id = :id";
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             $item = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$item) {
+                return null;
+            }
             if ($item) {
-                $livro = new Livro();
-                $livro->id = $item['id'];
-                $livro->title = $item['title'];
-                $livro->author = $item['author'];
-                $livro->description = $item['description'];
-                $livro->image = $item['cover_image'];
-                $livro->rating = $item['rating'];
-                return $livro;
+               return Livro::make($item);
             }
             return null;
         }
+    }
+
+    public function getLivros()
+    {
         
         $query = "SELECT * FROM book";
         $items = $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
         foreach ($items as $item) {
-            $livro = new Livro();
-            $livro->id = $item['id'];
-            $livro->title = $item['title'];
-            $livro->author = $item['author'];
-            $livro->description = $item['description'];
-            $livro->image = $item['cover_image'];
-            $livro->rating = $item['rating'];
+            $livro = Livro::make($item);
             $this->livros[] = $livro;
         }
 
