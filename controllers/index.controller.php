@@ -1,5 +1,4 @@
 <?php
-$db = new Dados();
-$livros = $db->getLivros();
+$livros = (new Dados)->getLivros();
   view('index', array('livros'=> $livros));
 ?>

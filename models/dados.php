@@ -21,8 +21,27 @@ class Dados
         $this->db = Conexao::getInstance();
     }
 
-    public function getLivros()
+    public function getLivros($id = null)
     {
+        if ($id) {
+            $query = "SELECT * FROM book WHERE id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $item = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($item) {
+                $livro = new Livro();
+                $livro->id = $item['id'];
+                $livro->title = $item['title'];
+                $livro->author = $item['author'];
+                $livro->description = $item['description'];
+                $livro->image = $item['cover_image'];
+                $livro->rating = $item['rating'];
+                return $livro;
+            }
+            return null;
+        }
+        
         $query = "SELECT * FROM book";
         $items = $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
         foreach ($items as $item) {

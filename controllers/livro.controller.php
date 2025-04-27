@@ -1,15 +1,12 @@
 <?php
-  $db = new Dados();
-  $livros = $db->getLivros();
 
-  if(!isset($_REQUEST['id'])) {
-    http_response_code(404);
-    require 'controllers/404.controller.php';
-    die();
-  }
+if(!isset($_REQUEST['id'])) {
+  http_response_code(404);
+  require 'controllers/404.controller.php';
+  die();
+}
 
-  $livroBusca = array_filter($livros, fn($livroFiltro) => $livroFiltro->id == $_REQUEST['id']);
-  $livro = array_pop($livroBusca);
+$livro = (new Dados)->getLivros($_REQUEST['id']);
 
   view('livro', array('livro'=> $livro));
   
