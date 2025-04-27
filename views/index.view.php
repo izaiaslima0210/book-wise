@@ -3,10 +3,10 @@
             <p class="text-gray-400">Aqui você pode explorar e gerenciar seus livros favoritos.</p>
             
             <div class="mt-6">
-                <form method="GET" action="explorar.php" class="relative">
+                <form method="GET" action="" class="relative">
                     <input 
                         type="text" 
-                        name="pesquisa" 
+                        name="pesquisar" 
                         placeholder="Pesquisar livros..." 
                         class="w-full bg-gray-800 text-gray-300 placeholder-gray-500 rounded pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />

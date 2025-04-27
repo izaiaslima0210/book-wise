@@ -30,15 +30,25 @@ class Dados
         }
     }
 
-    public function getLivros()
+    public function getLivros($pesquisa = null)
     {
+        if ($pesquisa) {
+            $query = "SELECT * FROM book WHERE title LIKE :pesquisa OR author LIKE :pesquisa";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindValue(':pesquisa', '%' . $pesquisa . '%');
+            $stmt->execute();
+            $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (!$items) {
+                return null;
+            }
+            $this->livros = array_map(fn($item) => Livro::make($item), $items);
+            return $this->livros;
+        }
+    
         
         $query = "SELECT * FROM book";
         $items = $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($items as $item) {
-            $livro = Livro::make($item);
-            $this->livros[] = $livro;
-        }
+        $this->livros = array_map(fn($item) => Livro::make($item), $items);
 
         return $this->livros;
     }
