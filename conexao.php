@@ -6,13 +6,13 @@ class Conexao {
     public static function getInstance()
     {
         if (self::$instance === null) {
-            self::$instance = new PDO('sqlite:' . __DIR__ . '/../database.sqlite');
+            self::$instance = new PDO('sqlite:' . __DIR__ . '/database.sqlite');
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         $query = self::$instance->query("SELECT name FROM sqlite_master WHERE type='table' AND name='user';");
         if ($query->fetch() === false) {
             // Se não existe a tabela, cria todas
-            $path_sql = __DIR__ . '/../create_tables.sql';
+            $path_sql = __DIR__ . '/create_tables.sql';
             $sql = file_get_contents($path_sql);
 
             if (!$sql) {

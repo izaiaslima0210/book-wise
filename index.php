@@ -1,5 +1,5 @@
 <?php
 require 'functions.php';
-require 'models/dados.php';
+require 'database.php';
 require 'routes.php';
 ?>
