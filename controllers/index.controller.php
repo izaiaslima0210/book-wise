@@ -1,5 +1,5 @@
 <?php
-  // require 'dados.php';
-  require 'models/dados.php';
+$db = new Dados();
+$livros = $db->getLivros();
   view('index', array('livros'=> $livros));
 ?>

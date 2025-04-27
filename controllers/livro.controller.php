@@ -1,6 +1,6 @@
 <?php
-// require 'dados.php';
-require 'models/dados.php';
+  $db = new Dados();
+  $livros = $db->getLivros();
 
   if(!isset($_REQUEST['id'])) {
     http_response_code(404);
