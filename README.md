@@ -36,6 +36,9 @@ O **Book Wise** é um projeto de aprendizado em PHP, estruturado no padrão **MV
 
 ---
 
+<p align="center">
+  <img src="assets/preview.png" alt="Preview do projeto" />
+</p>
 
 ---
 
