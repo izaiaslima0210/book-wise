@@ -8,6 +8,7 @@
                         type="text" 
                         name="pesquisar" 
                         placeholder="Pesquisar livros..." 
+                        value="<?= isset($_GET['pesquisar']) ? htmlspecialchars($_GET['pesquisar']) : '' ?>"
                         class="w-full bg-gray-800 text-gray-300 placeholder-gray-500 rounded pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     />
                     <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
