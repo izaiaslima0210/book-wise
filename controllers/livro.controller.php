@@ -6,8 +6,11 @@ if(!isset($_REQUEST['id'])) {
   die();
 }
 
-$livro = (new Dados)->getLivro($_REQUEST['id']);
-
+$query = "SELECT id, title, `description`, author, cover_image as image, rating  FROM book WHERE id = :id";
+$livro = (new Dados)->query(
+  query: $query, 
+  class: Livro::class, 
+  params: [':id' => $_REQUEST['id']])->fetch();
   view('livro', array('livro'=> $livro));
   
 ?>
