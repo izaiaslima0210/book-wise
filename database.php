@@ -12,44 +12,13 @@ class Dados
         $this->db = Conexao::getInstance();
     }
 
-    public function getLivro($id)
+    public function query($query, $class, $params = [])
     {
-        if (!empty($id)) {
-            $query = "SELECT * FROM book WHERE id = :id";
-            $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            $item = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (!$item) {
-                return null;
-            }
-            if ($item) {
-               return Livro::make($item);
-            }
-            return null;
+        $stmt = $this->db->prepare($query);
+        if($class) {
+            $stmt->setFetchMode(PDO::FETCH_CLASS, $class);
         }
-    }
-
-    public function getLivros($pesquisa = null)
-    {
-        if ($pesquisa) {
-            $query = "SELECT * FROM book WHERE title LIKE :pesquisa OR author LIKE :pesquisa";
-            $stmt = $this->db->prepare($query);
-            $stmt->bindValue(':pesquisa', '%' . $pesquisa . '%');
-            $stmt->execute();
-            $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if (!$items) {
-                return null;
-            }
-            $this->livros = array_map(fn($item) => Livro::make($item), $items);
-            return $this->livros;
-        }
-    
-        
-        $query = "SELECT * FROM book";
-        $items = $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
-        $this->livros = array_map(fn($item) => Livro::make($item), $items);
-
-        return $this->livros;
+        $stmt->execute($params);
+        return $stmt;
     }
 }
