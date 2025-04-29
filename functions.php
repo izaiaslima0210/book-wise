@@ -1,9 +1,10 @@
 <?php
 
-function dd($dump) {
+function dd(...$dump) {
     echo '<pre>';
     var_dump($dump);
-    echo '</pre>';    
+    echo '</pre>'; 
+    die();   
 }
 
 function view($view, $data = []) {

@@ -7,9 +7,12 @@ class Dados
 {
   private $db;
   public $livros;
+  private $database;
     public function __construct()
     {
-        $this->db = Conexao::getInstance();
+        $config = require 'config.php';
+        $this->database = $config['database']['driver'] . ':' . $config['database']['database'];
+        $this->db = Conexao::getInstance($this->database);
     }
 
     public function query($query, $class, $params = [])

@@ -3,10 +3,10 @@
 class Conexao {
     private static $instance = null;
 
-    public static function getInstance()
+    public static function getInstance($database)
     {
         if (self::$instance === null) {
-            self::$instance = new PDO('sqlite:' . __DIR__ . '/database.sqlite');
+            self::$instance = new PDO($database);
             self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         $query = self::$instance->query("SELECT name FROM sqlite_master WHERE type='table' AND name='user';");
@@ -26,5 +26,4 @@ class Conexao {
     }  
 }
 
-new Conexao();
-?>
+new Conexao();      
